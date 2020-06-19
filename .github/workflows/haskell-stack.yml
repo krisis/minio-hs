@@ -76,6 +76,7 @@ jobs:
         Invoke-WebRequest -Uri https://dl.minio.io/server/minio/release/windows-amd64/minio.exe -OutFile $HOME/minio.exe
         Import-Certificate -FilePath "$env:temp/minio-config/certs/public.crt" -CertStoreLocation Cert:\LocalMachine\Root
         Start-Process -NoNewWindow -FilePath "$HOME/minio.exe" -ArgumentList "--certs-dir", "$env:temp/minio-config/certs", "server", "$env:temp/fs"
+        Invoke-WebRequest -Uri "https://localhost:9000/minio/health/live" -ErrorAction Stop
 
     - name: Install dependencies and build
       run: |
